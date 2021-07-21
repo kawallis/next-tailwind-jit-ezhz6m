@@ -1,7 +1,12 @@
-import React from 'react';
+import React from "react";
 
+import { Class } from "../models";
+
+interface CardProps extends Class {
+  onClick: (classId: string) => void;
+}
 //I made this responsive but I would in prefer to use typescript here to define all the types of the properties
-export const Card = ({
+export const Card: React.FC<CardProps> = ({
   id, // uuid
   onClick, // (classID: uuid) => void
   title, // string
@@ -10,10 +15,10 @@ export const Card = ({
   time, // date and would use library to convert this and handle edge cases for timezones
   day, // string
   instructor, // { firstName: string, lastName: string, id: uuid, image: string}
-  booked = false // boolean
+  booked = false, // boolean
 }) => {
   return (
-    <div className="w-full shadow-lg rounded p-4 border border-gray-200 flex flex-col items-center max-w-system">
+    <div className="w-full shadow-lg rounded p-4 border border-gray-200 flex flex-col items-center max-w-sm">
       <p className="uppercase font-bold text-gray-600 text-sm">{type}</p>
       <p className="text-2xl font-bold text-center">{title}</p>
       <p className="text-gray-600 text-md mt-2">Click for more info</p>
@@ -27,10 +32,8 @@ export const Card = ({
         src={instructor?.image}
       />
       <p className="text-sm">
-        Led by:{' '}
-        <span className="text-sm font-bold">{`${instructor?.firstName} ${
-          instructor?.lastName
-        }`}</span>
+        Led by:{" "}
+        <span className="text-sm font-bold">{`${instructor?.firstName} ${instructor?.lastName}`}</span>
       </p>
       {!booked && (
         <button
